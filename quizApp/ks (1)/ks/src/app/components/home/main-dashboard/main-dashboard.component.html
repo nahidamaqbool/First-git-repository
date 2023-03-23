@@ -1,0 +1,623 @@
+<!-- <app-main-carousel></app-main-carousel>
+
+<div class="my-account sec-padding">
+  <div class="container mb-4" fxLayoutAlign="start center">
+    <mat-card class="w-100 bg-light layout" fxHide.lt-md="true">
+      <mat-card-actions align="end">
+        <div>
+          <button
+            class="btn"
+            (click)="changeViewType('list', 100, 'col-sm-6', 'row', true)"
+            fxHide.lt-md="true"
+          >
+            <mat-icon>view_list</mat-icon>
+          </button>
+          <button
+            class="btn"
+            (click)="changeViewType('list', 32, 'col-sm-12', 'column', false)"
+            fxHide.lt-md="true"
+          >
+            <mat-icon>view_module</mat-icon>
+          </button>
+          <button
+            class="btn"
+            (click)="changeViewType('grid', 24, 'col-sm-12', 'column', false)"
+            fxHide.lt-md="true"
+          >
+            <mat-icon>view_comfy</mat-icon>
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="container main-container-width" fxLayoutAlign="center center">
+    <div
+      fxLayout="row wrap"
+      fxLayoutGap="5px"
+      fxLayoutAlign="start center"
+      fxLayoutAlign.lt-md="start center"
+      class="row-width"
+    >
+      <mat-card
+        [fxLayout]="layOutSm"
+        fxFlex.sm="42"
+        [fxFlex.gt-sm]="viewCol"
+        *ngFor="let quiz of pageSlice"
+        class="mb-4"
+        [class.descriptive-matcard]="handleDescriptionView"
+      >
+        <div [class.descriptive-image-container]="handleDescriptionView">
+          <img
+            mat-card-image
+            src="../../../../assets/images/quiz-img.jpg"
+            [class.descriptive-img]="handleDescriptionView"
+            alt="Quiz"
+          />
+        </div>
+        <div [class.descriptive-matcard-content]="handleDescriptionView">
+          <mat-card-content>
+            <div class="mb-2 pt-4">
+              <h4>{{ quiz.eventName }}</h4>
+              <p *ngIf="!handleDescriptionView" class="text-success mb-0">
+                Start Date:<span class="text-secondary">
+                  {{ quiz.startDate | date }}</span
+                >
+              </p>
+              <p *ngIf="!handleDescriptionView" class="text-info mb-0">
+                End Date:
+                <span class="text-secondary">{{ quiz.endDate | date }}</span>
+              </p>
+              <p class="w-100 text-wrap" *ngIf="handleDescriptionView">
+                {{ quiz.description }}
+              </p>
+            </div>
+
+            <div *ngIf="!handleDescriptionView" class="pt-2">
+              <p class="mb-0 text-secondary">
+                Questions:
+                <span class="text-dark font-weight-bold"
+                  >{{ quiz.totalQuestions }},</span
+                >
+                Duration:
+                <span class="text-dark font-weight-bold"
+                  >{{ quiz.totalTime }} Minutes</span
+                >
+              </p>
+              <p class="mb-0 text-secondary font-weight-bold">
+                Reward:
+                <span class="text-info font-weight-bold">{{
+                  quiz.reward
+                }}</span>
+              </p>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button
+              class="btn btn-outline-info"
+              (click)="playQuiz(quiz)"
+              *ngIf="userRole !== 'admin' && userRole !== 'organizer'"
+            >
+              Play Quiz
+            </button>
+            <button
+              class="btn btn-outline-info"
+              *ngIf="userRole == 'admin' || userRole == 'organizer'"
+              (click)="organizeQuiz(quiz._id)"
+            >
+              Organize Quiz
+            </button>
+          </mat-card-actions>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <mat-paginator
+    class="row w-100 me-auto"
+    [length]="this.quizDetails.length"
+    [pageSize]="this.ItemsPerPage"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+</div>
+
+<div></div> -->
+
+<!-- <app-main-carousel></app-main-carousel> -->
+
+<!-- <div class="my-account sec-padding"> -->
+<!-- <div class="container mb-3" fxLayoutAlign="start center"> -->
+
+<!-- <mat-card class="w-100 bg-light layout ">
+        
+
+      
+
+      <mat-card-content>
+
+        <div class="d-flex justify-content-between m-1 " fxlayoutalign="space-between center" fxLayoutGap="20px" fxLayout.xs="row" fxLayout.sm="row" fxLayout="row">
+          <div fxLayoutAlign="center center">Quizs
+                
+           </div>
+  
+          <div class="mr-1" fxFlexAlign="start"> 
+            <span><button class="btn border-0">Create quiz</button></span>
+          </div>
+
+         </div>   
+  
+      
+
+          <mat-table #table [dataSource]="dataSource" >
+            <div class="d-flex"   fxFlex-xs="25%" >
+        <div>
+            <ng-container matColumnDef="quizName">
+              <mat-header-cell *matHeaderCellDef>quiz</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.quizName}} </mat-cell>
+            </ng-container>      
+          </div>
+        
+
+
+
+
+        <div>             
+            <ng-container matColumnDef="open">
+              <mat-header-cell *matHeaderCellDef>open </mat-header-cell>
+              <mat-cell *matCellDef="let element"> Open</mat-cell>
+            </ng-container>
+          </div>
+
+        <div>
+            <ng-container matColumnDef="preview">
+              <mat-header-cell *matHeaderCellDef class="pl-2">preview</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <button class="btn mx-2 mb-1"><span>
+                  <i class="fa fa-eye"></i>
+                  Preview
+                </span>
+              </button>
+
+                 </mat-cell>
+            </ng-container>
+          </div>
+
+
+          <div>
+                      
+            <ng-container matColumnDef="selectoption">
+            <mat-header-cell *matHeaderCellDef class="p-1">selectoption</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                  <span class="btn mb-2 ml-2  ">select option</span>
+                    <span class="mb-2" fxFlex.xs="100%">             
+                 <mat-select>
+                        <mat-option>
+                          Delete
+                        </mat-option>
+                        <mat-option>
+                          Edit
+                        </mat-option>
+                        <mat-option>
+                          Rename
+                        </mat-option>
+      
+                      </mat-select>
+
+                    </span>
+              
+              </mat-cell>
+          </ng-container>
+        </div>
+
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </div>
+          </mat-table>
+        
+        </mat-card-content>
+
+    </mat-card> -->
+<!-- </div> -->
+<!-- </div> -->
+
+<!-- EQUAL WIDTH COLUMNS -->
+
+<!-- <div class="container bg-dark"> -->
+
+<!-- <div class="row bg-dark">
+            <div class="col">
+                1 of 3
+            </div> 
+             <div class="col">
+                2 of 3
+            </div>
+            <div class="col">
+                3 of 3
+            </div> -->
+<!-- </div> -->
+<!-- <div class="row"> 
+            <div class="col">
+                1 of 2
+            </div>
+            <div class="col">
+                2 of 2
+            </div>
+        </div> -->
+<!-- </div> -->
+<!-- <div class="container bg-dark">jknjb</div>
+    <div class="container-sm bg-primary">100% wide until small breakpoint</div>
+<div class="container-md bg-info">100% wide until medium breakpoint</div>
+<div class="container-lg bg-dark">100% wide until large breakpoint</div>
+<div class="container-xl bg-success">100% wide until extra large breakpoint</div>
+<div class="container-xxl bg-dark">100% wide until extra extra large breakpoint</div> -->
+
+<!-- AUTO WIDTH COLUMNS -->
+
+<!-- <div class="container">
+        <div class="row">
+            <div class="col">
+                1 of 3
+            </div>
+            <div class="col-auto">
+                Variable width content
+            </div>
+            <div class="col">
+                2 of 3
+            </div>
+        </div>
+    </div>
+
+   SPECIFIC WIDTH COLUMNS
+
+    <div class="container">
+        <div class="row">
+            <div class="col-8">Column of 8/12</div>
+            <div class="col-4">Column of 4/12</div>
+        </div>
+    </div>
+  --->
+<!-- <div class="container-fluid"> 
+        <div class="row">
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">Column</div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">Column</div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">Column</div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">Column</div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">Column</div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">Column</div>
+        </div>
+     </div> -->
+
+<!-- ROW COLUMNS -->
+
+<!-- <div class="container"> 
+        <div class="row row-cols-2">
+            <div class="col">column</div>
+            <div class="col">column</div>
+            <div class="col">column</div>
+            <div class="col">column</div>
+        </div>
+    </div> -->
+<!-- <nav class="navbar navbar-expand-md navbar-light bg-light">
+  <a class="navbar-brand ">Portfolio</a>
+  <div class="container">
+
+  <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navBar">
+    <span class="navbar-toggler-icon"></span>
+</button>
+
+  <div  class="collapse navbar-collapse" id="navBar">
+    <ul class="navbar-nav ms-auto fw-bold">
+      <li class="nav-item">
+        <a href="#" class="nav-link ">home</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link ">profile</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link ">contact</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link ">info</a>
+      </li>
+
+    </ul>
+  </div>
+  </div>
+</nav> -->
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded=""
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"
+          >Home <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input
+        class="form-control mr-sm-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        Search
+      </button> -->
+    <!-- </form>
+  </div>
+</nav>
+<section
+  id="home"
+  class="d-flex min-vh-100 flex-column justify-content-center align-items-center"
+  style="background-image: url('assets/images/Coffea.jpg')"
+>
+  <h1 class="fw-bolder display-1 mb-3">lucie Andrewson</h1>
+  <h6 class="fs-3 text-secondary text-capitalize mb-4">
+    I'm a professional front-end web developer
+  </h6>
+  <a href="#about" class="btn btn-danger btn-outline-primary rounded-pill"
+    >About Me</a
+  > -->
+
+<!-- </section>
+<section id="about" class="container">
+  <div class="text-center py-5">
+    <h2 class="fw-bolder text-uppercase">about</h2>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem,
+      voluptatum!
+    </p>
+  </div>
+  <div class="row mb-5">
+    <div class="col-md-4 mb-4">
+      <img src="assets/images/DPS.jpg" alt="" class="img-fluid" />
+    </div>
+    <div class="col-md-7">
+      <p class="lh-lg">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga,
+        veritatis animi distinctio minus nihil officiis laboriosam sed
+        reiciendis consequatur voluptatum dolore perspiciatis voluptas
+        consectetur omnis! Eaque, soluta iusto. Alias, fuga velit optio
+        necessitatibus totam blanditiis mollitia quisquam est nesciunt sit
+        molestiae quibusdam obcaecati. Id commodi ratione hic impedit, sit
+        quaerat.
+      </p>
+      <p class="fw-bolder fs-5">My Skills:</p>
+      <p>HTML:</p>
+      <div class="progress">
+        <div
+          class="progress-bar progress-bar-striped bg-success"
+          style="width: 70%"
+        >
+          70%
+        </div>
+      </div>
+      <p>CSS:</p>
+      <div class="progress">
+        <div
+          class="progress-bar bg-info progress-bar-striped"
+          style="width: 65%"
+        >
+          65%
+        </div>
+      </div>
+      <p>JS:</p>
+      <div class="progress">
+        <div
+          class="progress-bar progress-bar-striped bg-warning"
+          style="width: 30%"
+        >
+          30%
+        </div>
+      </div>
+      <p>Bootstrap 5:</p>
+      <div class="progress">
+        <div
+          class="progress-bar progress-bar-striped bg-danger"
+          style="width: 90%"
+        >
+          90%
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="Portfolio" class="bg-dark py-5">
+  <div class="container">
+    <div class="text-white text-center py-5">
+      <h2 class="fw-bolder text-uppercase text-white">My portfolio</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae
+        totam magni fuga laudantium saepe provident odio id deserunt obcaecati
+        perspiciatis magnam consequuntur laborum officiis eius labore mollitia,
+        optio fugit ab?
+      </p>
+    </div>
+    <div class="row pb-5">
+      <div class="col-md-6 col-lg-4 col-sm-4 mb-4">
+        <img
+          src="assets/images/carousel/safron.png"
+          alt=""
+          class="img-fluid img-thumbnail"
+        />
+      </div>
+      <div class="col-md-6 col-lg-4 mb-4 col-sm-4">
+        <img
+          src="assets/images/carousel/safron.png"
+          alt=""
+          class="img-fluid img-thumbnail"
+        />
+      </div>
+      <div class="col-md-6 col-lg-4 mb-4 col-sm-4">
+        <img
+          src="assets/images/carousel/safron.png"
+          alt=""
+          class="img-fluid img-thumbnail"
+        />
+      </div>
+      <div class="col-md-6 col-lg-4 mb-4 col-sm-4">
+        <img
+          src="assets/images/carousel/safron.png"
+          alt=""
+          class="img-fluid img-thumbnail"
+        />
+      </div>
+      <div class="col-md-6 col-lg-4 mb-4 col-sm-4">
+        <img
+          src="assets/images/carousel/safron.png"
+          alt=""
+          class="img-fluid img-thumbnail"
+        />
+      </div>
+      <div class="col-md-6 col-lg-4 mb-4 col-sm-4">
+        <img
+          src="assets/images/carousel/safron.png"
+          alt=""
+          class="img-fluid img-thumbnail"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+<section id="blog" class="container py-5">
+  <div class="text-center py-5">
+    <h2 class="fw-bolder text-uppercase">My Blog</h2>
+    <P
+      >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod quaerat
+      repellat neque porro earum similique laudantium adipisci, ut, ad voluptas
+      modi cum consectetur dicta nesciunt, nulla eveniet aut nostrum amet!</P
+    >
+  </div>
+  <div class="row pb-5">
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card">
+        <img src="assets/images/amr.jpg" alt="" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title text-center py-2">
+            Lorem ipsum dolor sit amet.
+          </h5>
+          <p class="card-text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis at
+            illum natus sequi explicabo, adipisci saepe et. Vero, labore enim.
+          </p>
+          <a href="#" class="btn btn-light">Read more...</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card">
+        <img src="assets/images/amr.jpg" alt="" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title text-center py-2">
+            Lorem ipsum dolor sit amet.
+          </h5>
+          <p class="card-text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis at
+            illum natus sequi explicabo, adipisci saepe et. Vero, labore enim.
+          </p>
+          <a href="#" class="btn btn-light">Read more...</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="contact" class="bg-dark py-5">
+  <div class="container">
+    <div class="text-center py-5 text-white">
+      <h2 class="fw-bolder text-uppercase">Contact Me</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure a officiis
+        vitae labore dolores sunt iste dignissimos doloribus! At totam natus
+        pariatur aperiam ea in ullam dolores non expedita eaque?
+      </p>
+    </div>
+    <div class="col-11 col-sm-10 col-md-9 col-lg-8 col-xl-7 col-xxl-6 mx-auto mb-5">
+      <form action="" class="action text-white">
+        <div class="mb-3">
+          <label for="name" class="form-label">Your Name</label>
+          <input type="text" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">
+            <input type="text" class="form-control" />
+          </label>
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Your Subject</label>
+          <textarea name="message" rows="10" class="form-control"></textarea>
+        </div>
+        <button class="submit btn btn-danger btn-lg">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+<footer class="bg-light">
+  <div class="container text-center">>All rights reserved by
+    <p class="mb-0 py-3 fs-5"></p>
+  </div>
+</footer>
+<p class="text-sm-end">Start aligned text on viewports sized SM (small) or wider.</p>
+<p class="text-md-start">Start aligned text on viewports sized MD (medium) or wider.</p>
+<p class="text-lg-right">Start aligned text on viewports sized LG (large) or wider.</p>
+<p class="text-xl-start">Start aligned text on viewports sized XL (extra-large) or wider.</p>
+ -->
+test section
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand text-dark">Portfolio</a>
+    <button
+    class="navbar-toggler btn btn-dark"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+
+     >
+
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active"><a class="nav-link">Home</a></li>
+      <li class="nav-item active"><a class="nav-link">About</a></li>
+      <li class="nav-item active"><a class="nav-link">Contact</a></li> </ul>
+  </div>
+</nav>
+<section></section>
+  
